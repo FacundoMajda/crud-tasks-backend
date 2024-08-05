@@ -18,6 +18,6 @@ Para iniciar el servidor, sigue estos pasos:
 
 - `GET /tasks`: Obtiene todas las tareas.
 - `GET /tasks/:id`: Obtiene una tarea por su ID.
-- `POST /tasks`: Crea una nueva tarea. Requiere un cuerpo de solicitud con los campos `title`, `description` y `done`.
+- `POST /tasks`: Crea una nueva tarea. Requiere un cuerpo de solicitud con los campos `title` y `description`.
 - `PUT /tasks/:id`: Actualiza una tarea existente. Requiere un cuerpo de solicitud con los campos `title`, `description` y `done`.
 - `DELETE /tasks/:id`: Elimina una tarea por su ID.
