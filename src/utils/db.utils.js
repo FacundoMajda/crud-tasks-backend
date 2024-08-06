@@ -42,15 +42,10 @@ export const findOne = async (table, whereClause, values = []) => {
   }
   const query = `SELECT * FROM ${table} WHERE ${whereClause}`;
   const results = await executeQuery(query, values);
-  if (results.length > 0) {
-    console.log(
-      `Se ha encontrado un registro en la tabla ${table} con el ID: ${results[0].id}`
-    );
-  } else {
-    console.log(
-      `No se ha encontrado ningún registro en la tabla ${table} que cumpla con la condición: ${whereClause}`
-    );
-  }
+
+  results.length > 0 ?console.log(`Se ha encontrado un registro en la tabla ${table} con el ID: ${results[0].id}`);
+                     :console.log(`No se ha encontrado ningún registro en la tabla ${table} que cumpla con la condición: ${whereClause}`);
+  
   return results;
 };
 
