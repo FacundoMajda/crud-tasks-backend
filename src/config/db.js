@@ -1,15 +1,24 @@
 import "dotenv/config";
-import mysql from "mysql2/promise"; //promise para asincronia
+import { Sequelize } from "sequelize";
+import { environment } from "./environment.js";
 
-const connectDb = async () => {
-  const connection = await mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASS,
-  });
+const sequelize = new Sequelize(
+  environment.database.name,
+  environment.database.user,
+  environment.database.password,
+  {
+    host: environment.database.host,
+    dialect: "mysql",
+  }
+);
 
-  return connection;
-};
-
-export default connectDb;
+export async function initDb() {
+  try {
+    await sequelize.authenticate();
+    console.log("## DB Conectada. ##");
+    await sequelize.sync(); // { force: true }
+  } catch (error) {
+    console.error("No se pudo conectar:", error);
+  }
+}
+export default sequelize;

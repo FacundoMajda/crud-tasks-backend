@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import TaskEntity from "./src/models/task.model.js";
 import router from "./src/routes/task.routes.js";
+import { initDb } from "./src/config/db.js";
 
 const app = express();
 
@@ -27,11 +28,12 @@ app.use((req, res) => {
   res.status(404).send("404 - No encontrado");
 });
 
-async function initModels() {
-  await TaskEntity();
-}
-
 app.listen(PORT, async () => {
-  await initModels();
-  console.log(`Servidor ejecutandose en: ${URL}:${PORT}`);
+  try {
+    await initDb();
+    console.log(`Servidor ejecutándose en: ${URL}:${PORT}`);
+  } catch (error) {
+    console.error("Error al inicializar la base de datos:", error);
+    process.exit(1); // Exit the process with an error code
+  }
 });
