@@ -89,7 +89,7 @@ export const deleteTask = async (req, res) => {
   }
 
   try {
-    const [result] = await Task.Destroy({
+    const result = await Task.destroy({
       where: { id },
     });
     result.rowDeleted === 1
